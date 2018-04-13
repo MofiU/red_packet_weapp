@@ -1,0 +1,13 @@
+{
+  "description": "Demo for send packet",
+  "setting": {
+    "urlCheck": true,
+    "es6": false,
+    "postcss": false,
+    "minified": false
+  },
+  "compileType": "miniprogram",
+  "appid": "wx20c5aff8be9d0607",
+  "projectname": "red-packet",
+  "miniprogramRoot": "./dist"
+}

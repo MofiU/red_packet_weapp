@@ -1,0 +1,56 @@
+<style lang="scss" src="./styles/weui.scss"></style>
+<style lang="scss" src="./styles/zanui.scss"></style>
+<style lang="scss">
+  page {
+    background: #f5f5f5;
+    height: 100%;
+  }
+</style>
+
+<script>
+import wepy from 'wepy'
+import 'wepy-async-function'
+
+import { setStore } from 'wepy-redux'
+import configStore from './store'
+
+const store = configStore()
+setStore(store)
+
+export default class extends wepy.app {
+  config = {
+    pages: [
+      'pages/index',
+      'pages/detail',
+      'pages/list',
+      'pages/coupon',
+      'pages/success'
+    ],
+    window: {
+      backgroundTextStyle: 'light',
+      navigationBarBackgroundColor: '#FF0000',
+      navigationBarTitleText: '操作员奖励红包',
+      navigationBarTextStyle: 'white'
+    },
+    tabBar: {
+      selectedColor: '#3cc51f',
+      list: [
+        {
+          pagePath: 'pages/index',
+          text: '扫码'
+        },
+        {
+          pagePath: 'pages/list',
+          text: '奖励列表'
+        }
+      ]
+    }
+  }
+
+  constructor () {
+    super()
+    this.use('requestfix')
+    this.use('promisify')
+  }
+}
+</script>

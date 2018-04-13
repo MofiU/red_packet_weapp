@@ -1,0 +1,19 @@
+<template>
+  <view>
+    <h1>操作员扫码奖励红包</h1>
+    <h2>{{reward}}元</h2>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import { connect } from 'wepy-redux'
+
+  @connect((state) => {
+    reward: state.count.reward
+  })
+
+  export default class Detail extends wepy.page {
+
+  }
+</script>

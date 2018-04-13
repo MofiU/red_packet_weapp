@@ -1,0 +1,66 @@
+<style type="scss">
+  .page {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height: 100%;
+  }
+  .popup {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height: 400px;
+    width: 300px;
+  }
+</style>
+
+<template>
+  <view class="page">
+    <button class="weui-btn" type="default" plain="true" @tap="handleScanCode">扫码领取优惠券</button>
+  </view>
+  <popup>
+    <view class="popup">
+      <button class="weui-btn" type="default" plain="true" @tap="getReward">领取红包</button>
+    </view>
+  </popup>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import Popup from '@/components/zanui/popup'
+  import { connect } from 'wepy-redux'
+
+  @connect({
+    reward (state) {
+      return state.count.reward
+    }
+  }, {})
+
+  export default class Index extends wepy.page {
+    components = {
+      popup: Popup
+    }
+
+    watch = {
+      reward (newValue, oldValue) {
+        value = newValue - oldValue
+        this.handlePopup()
+        this.$navigate('detail?reward=' + value)
+      }
+    }
+
+    methods = {
+      handleScanCode () {
+        wepy.scanCode().then((res) => {
+          console.log('scan success', res)
+        }, (error) => {
+          console.log('scan code error', error)
+          this.handlePopup()
+        })
+      }
+    }
+    handlePopup () {
+      this.$invoke('popup', 'togglePopup')
+    }
+  }
+</script>

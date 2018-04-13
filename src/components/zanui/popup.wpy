@@ -1,0 +1,29 @@
+<template>
+  <view class="zan-popup {{direction ? 'popup-example--' + direction + ' zan-popup--' + direction : ''}} {{ showPopup ? 'zan-popup--show' : ''}}">
+    <view class="zan-popup__mask" bindtap="togglePopup"></view>
+    <view class="zan-popup__container {{direction ? '' : 'popup-example--center'}}">
+      <slot></slot>
+    </view>
+  </view>
+</template>
+<script>
+import wepy from 'wepy'
+
+export default class zanToast extends wepy.component {
+  props = {
+    direction: {
+      type: String,
+      default: ''
+    }
+  }
+  data = {
+    showPopup: false
+  }
+  methods = {
+    togglePopup() {
+      this.showPopup = !this.showPopup
+      this.$apply()
+    }
+  }
+}
+</script>
