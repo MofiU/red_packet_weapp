@@ -4,6 +4,8 @@
     align-items:center;
     justify-content:center;
     height: 100%;
+    background: url('http://img1.ph.126.net/7swuWIKdWHfFe-CKjYJrDw==/6597553551773545279.jpg');
+    background-size: cover;
   }
   .popup {
     display:flex;
@@ -11,16 +13,25 @@
     justify-content:center;
     height: 400px;
     width: 300px;
+    background: url('http://img0.ph.126.net/oRAh7XxXWKn8YgIiTVQ6kQ==/1965539762470840896.jpg');
+    background-size: cover;
   }
 </style>
 
 <template>
   <view class="page">
-    <button class="weui-btn" type="default" plain="true" @tap="handleScanCode">扫码领取优惠券</button>
+    <button class="weui-btn" type="warn" @tap="handleScanCode">扫码领取优惠券</button>
   </view>
   <popup>
     <view class="popup">
-      <button class="weui-btn" type="default" plain="true" @tap="getReward">领取红包</button>
+      <view class="weui-flex">
+        <view class="weui-flex__item">
+          <button class="weui-btn" type="warn" @tap="increment">领取固定红包</button>
+        </view>
+        <view class="weui-flex__item">
+          <button class="weui-btn" type="warn" @tap="randomIncrement">领取随机红包</button>
+        </view>
+      </view>
     </view>
   </popup>
 </template>
@@ -29,12 +40,16 @@
   import wepy from 'wepy'
   import Popup from '@/components/zanui/popup'
   import { connect } from 'wepy-redux'
+  import { INCREMENT, RANDOM_INCREMENT } from '@/store/types/counter'
 
   @connect({
     reward (state) {
-      return state.count.reward
+      return state.counter.reward
     }
-  }, {})
+  }, {
+    increment: INCREMENT,
+    randomIncrement: RANDOM_INCREMENT
+  })
 
   export default class Index extends wepy.page {
     components = {
@@ -43,9 +58,8 @@
 
     watch = {
       reward (newValue, oldValue) {
-        value = newValue - oldValue
         this.handlePopup()
-        this.$navigate('detail?reward=' + value)
+        this.$navigate('detail')
       }
     }
 
@@ -53,6 +67,7 @@
       handleScanCode () {
         wepy.scanCode().then((res) => {
           console.log('scan success', res)
+          this.handlePopup()
         }, (error) => {
           console.log('scan code error', error)
           this.handlePopup()

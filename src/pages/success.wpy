@@ -1,7 +1,11 @@
 <template>
-  <view>
-    <view class="button-sp-area">
-      success page
+  <view class="weui-msg">
+    <view class="weui-msg__icon-area">
+      <icon type="success" size="93"></icon>
+    </view>
+    <view class="weui-msg__text-area">
+      <view class="weui-msg__title">领取成功</view>
+      <view class="weui-msg__desc">代金券已放入您的微信账户，请稍后查看</view>
     </view>
   </view>
 </template>

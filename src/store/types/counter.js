@@ -1,2 +1,3 @@
 export const INCREMENT = 'INCREMENT'
 
+export const RANDOM_INCREMENT = 'RANDOM_INCREMENT'

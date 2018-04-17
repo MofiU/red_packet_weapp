@@ -1,15 +1,70 @@
+<style type="scss">
+  .weui-media-box__title_wrap {
+    display: flex;
+    justify-content: space-between;
+  }
+  .totalReward {
+    padding: 20px;
+  }
+  .totalReward .amount {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 36px;
+  }
+  .totalReward .amount::after {
+    content: '元'
+  }
+</style>
 <template>
   <view>
-    <view class="button-sp-area">
-      list page
+    <view class="weui-panel weui-panel_access">
+      <view class="weui-panel__hd">支出xxx元</view>
+        <view class="weui-panel__bd">
+          <repeat for="{{records}}" key="id" index="id" item="item">
+            <view class="weui-media-box weui-media-box_appmsg">
+              <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+                <image class="weui-media-box__thumb" src="/images/avatar.png" />
+              </view>
+              <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                <view class="weui-media-box__title_wrap">
+                  <view class="weui-media-box__title">微信(MOP {{item.transactionAmount}})</view>
+                  <view class="weui-media-box__title">{{item.reward}} 元</view>
+                </view>
+                <view class="weui-media-box__desc">{{item.created_at}}</view>
+              </view>
+            </view>
+          </repeat>
+        </view>
+      </view>
+    </view>
+    <view class="zan-panel totalReward">
+      <view style="padding: 15px;">
+        <view>扫码奖励红包总额</view>
+        <view class="amount">{{totalReward}}</view>
+        <button class="weui-btn" type="warn" style="width: 60%;" @tap="redirectCoupon">领取奖励卡券</button>
+      </view>
     </view>
   </view>
 </template>
 
 <script>
   import wepy from 'wepy'
+  import { connect } from 'wepy-redux'
+
+  @connect({
+    records (state) {
+      return state.counter.records
+    },
+    totalReward (state) {
+      return state.counter.totalReward.toFixed(2)
+    }
+  })
 
   export default class List extends wepy.page {
-
+    methods = {
+      redirectCoupon () {
+        this.$navigate('success')
+      }
+    }
   }
 </script>
