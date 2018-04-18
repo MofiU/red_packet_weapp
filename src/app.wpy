@@ -47,40 +47,6 @@ export default class extends wepy.app {
     }
   }
 
-  onLaunch () {
-    wepy.startWifi().then((res) => {
-      console.log('startWifi', res)
-      // wepy.getWifiList().then((res) => {
-      //   console.log('getWifiList', res)
-      //   wepy.onGetWifiList((res) => {
-      //     console.log('onGetWifiList', res)
-      //   })
-      // }, (error) => {
-      //   console.error('getWifiList error', error)
-      // })
-      wepy.getConnectedWifi().then((res) => {
-        console.log('getConnectedWifi', res)
-      }, (error) => {
-        console.error('getConnectedWifi error', error)
-      })
-
-      wepy.connectWifi({
-        SSID: '测试Wifi',
-        BSSID: '22:cd:fe:55:b5:05',
-        password: '12345678'
-      }).then((res) => {
-        console.log('connectWifi', res)
-      }, (error) => {
-        console.error('connectWifi error', error)
-      })
-
-      wepy.onWifiConnected((res) => {
-        console.log('onWifiConnected', res)
-      })
-    }, (error) => {
-      console.error('startWifi error', error)
-    })
-  }
   constructor () {
     super()
     this.use('requestfix')

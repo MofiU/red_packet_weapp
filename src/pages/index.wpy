@@ -26,10 +26,10 @@
     <view class="popup">
       <view class="weui-flex">
         <view class="weui-flex__item">
-          <button class="weui-btn" type="warn" @tap="increment">领取固定红包</button>
+          <button class="weui-btn" type="warn" @tap="increment({{transactionAmount}})">领取固定红包</button>
         </view>
         <view class="weui-flex__item">
-          <button class="weui-btn" type="warn" @tap="randomIncrement">领取随机红包</button>
+          <button class="weui-btn" type="warn" @tap="randomIncrement({{transactionAmount}})">领取随机红包</button>
         </view>
       </view>
     </view>
@@ -52,6 +52,10 @@
   })
 
   export default class Index extends wepy.page {
+    data = {
+      transactionAmount: 0
+    }
+
     components = {
       popup: Popup
     }
@@ -67,10 +71,22 @@
       handleScanCode () {
         wepy.scanCode().then((res) => {
           console.log('scan success', res)
-          this.handlePopup()
+          const transactionAmount = parseFloat(res.result)
+
+          if (isNaN(transactionAmount)) {
+            wepy.showModal({
+              title: '扫码提示',
+              content: '无效的二维码',
+              showCancel: false
+            })
+          } else {
+            this.transactionAmount = transactionAmount
+            this.$apply()
+            this.handlePopup()
+          }
         }, (error) => {
           console.log('scan code error', error)
-          this.handlePopup()
+          // this.handlePopup()
         })
       }
     }
