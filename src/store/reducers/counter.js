@@ -33,5 +33,12 @@ export default handleActions({
 }, {
   reward: 0,
   records: [],
-  totalReward: 10
+  totalReward: 1000,
+  rankList: [
+    { id: (Math.random()*100000).toFixed(0), totalReward: 500, name: '颈椎病患者', avatar: '/images/user1.png', level: 'sliver' },
+    { id: (Math.random()*100000).toFixed(0), totalReward: 400, name: '怎么能吃小兔兔', avatar: '/images/user3.png', level: 'copper' },
+    { id: (Math.random()*100000).toFixed(0), totalReward: 300, name: '呱呱呱', avatar: '/images/user4.png' },
+    { id: (Math.random()*100000).toFixed(0), totalReward: 200, name: '一起喊茄子', avatar: '/images/user5.png' },
+    { id: (Math.random()*100000).toFixed(0), totalReward: 100, name: '我是萌妹', avatar: '/images/user6.png' }
+  ]
 })

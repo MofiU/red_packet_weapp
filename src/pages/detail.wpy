@@ -15,6 +15,7 @@
 </style>
 <template>
   <view class="reward">
+    <view class="title">操作员收银MOP {{transactionAmount}}</view>
     <view class="title">操作员扫码领奖励红包</view>
     <view class="value">{{reward}}</view>
     <button class="weui-btn" type="warn" @tap="redirectToList">查看总额及领取</button>
@@ -33,13 +34,17 @@
 
   export default class Detail extends wepy.page {
     data = {
-      reward: '--'
+      transactionAmount: null
     }
-
     methods = {
       redirectToList () {
-        wepy.switchTab({url: '/pages/list'})
+        this.$navigate('list')
       }
+    }
+
+    onLoad (options) {
+      this.transactionAmount = options.transactionAmount
+      this.$apply()
     }
   }
 </script>
